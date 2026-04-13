@@ -1,6 +1,6 @@
 package com.liam.battleships.model;
 
-public class Battleship {
+public class Battleship extends Ship {
     public int getLength() {
         return 4;
     }
