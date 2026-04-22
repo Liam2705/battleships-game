@@ -50,7 +50,7 @@ public class Board {
     public boolean placeShip(Ship ship, Coordinate start, boolean isHorizontal) {
         List<Coordinate> targetCoords = new ArrayList<>();
 
-        for (int i = 0; i <= ship.getLength(); i++) {
+        for (int i = 0; i < ship.getLength(); i++) {
             int x =  start.x() + (isHorizontal ? i : 0);
             int y = start.y() + (isHorizontal ? 0 : i);
             Coordinate current = new Coordinate(x, y);
