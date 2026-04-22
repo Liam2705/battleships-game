@@ -1,4 +1,4 @@
-package com.liam.battleships.model;
+package com.liam.battleships.model.ship;
 
 import java.util.ArrayList;
 import java.util.List;

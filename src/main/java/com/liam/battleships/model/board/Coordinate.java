@@ -1,4 +1,4 @@
-package com.liam.battleships.model;
+package com.liam.battleships.model.board;
 
 /*
 * Represents a grid position on the board

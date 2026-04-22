@@ -1,4 +1,6 @@
-package com.liam.battleships.model;
+package com.liam.battleships.model.ship;
+
+import com.liam.battleships.model.board.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;

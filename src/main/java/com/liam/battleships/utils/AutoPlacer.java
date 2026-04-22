@@ -1,8 +1,8 @@
 package com.liam.battleships.utils;
 
-import com.liam.battleships.model.Board;
-import com.liam.battleships.model.Coordinate;
-import com.liam.battleships.model.Ship;
+import com.liam.battleships.model.board.Board;
+import com.liam.battleships.model.board.Coordinate;
+import com.liam.battleships.model.ship.Ship;
 
 import java.util.List;
 import java.util.Random;

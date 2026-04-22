@@ -1,4 +1,4 @@
-package com.liam.battleships.model;
+package com.liam.battleships.model.ship;
 
 public class Submarine extends Ship {
     public int getLength() {

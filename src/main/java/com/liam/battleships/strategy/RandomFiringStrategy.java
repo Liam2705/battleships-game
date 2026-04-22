@@ -1,8 +1,8 @@
 package com.liam.battleships.strategy;
 
-import com.liam.battleships.model.Board;
-import com.liam.battleships.model.CellState;
-import com.liam.battleships.model.Coordinate;
+import com.liam.battleships.model.board.Board;
+import com.liam.battleships.model.board.CellState;
+import com.liam.battleships.model.board.Coordinate;
 import java.util.Random;
 
 /*

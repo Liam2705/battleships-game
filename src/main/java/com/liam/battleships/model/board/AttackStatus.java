@@ -1,4 +1,4 @@
-package com.liam.battleships.model;
+package com.liam.battleships.model.board;
 
 public enum AttackStatus {
     MISS,
