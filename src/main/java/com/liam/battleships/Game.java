@@ -7,6 +7,7 @@ import com.liam.battleships.model.player.HumanPlayer;
 import com.liam.battleships.model.ship.ClassicShipFactory;
 import com.liam.battleships.model.ship.Ship;
 import com.liam.battleships.model.ship.ShipFactory;
+import com.liam.battleships.strategy.HuntTargetStrategy;
 import com.liam.battleships.strategy.RandomFiringStrategy;
 import com.liam.battleships.utils.AutoPlacer;
 import com.liam.battleships.view.ConsoleView;
@@ -25,7 +26,7 @@ public class Game {
         AutoPlacer.placeFleetRandomly(aiBoard, factory.createStandardFleet());
 
         HumanPlayer human = new HumanPlayer("Liam", humanBoard);
-        AIPlayer ai = new AIPlayer("Computer", aiBoard, new RandomFiringStrategy());
+        AIPlayer ai = new AIPlayer("Computer", aiBoard, new HuntTargetStrategy());
 
         GameView view = new ConsoleView();
         GameController controller = new GameController(human, ai, view);
