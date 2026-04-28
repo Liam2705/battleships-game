@@ -1,5 +1,6 @@
 package com.liam.battleships.view;
 
+import com.liam.battleships.controller.GameController;
 import com.liam.battleships.model.board.Board;
 import com.liam.battleships.model.board.CellState;
 import com.liam.battleships.model.board.Coordinate;
@@ -8,6 +9,14 @@ import java.util.Scanner;
 
 public class ConsoleView implements GameView {
     private final Scanner scanner = new Scanner(System.in);
+    private GameController controller;
+    private Board lastKnownEnemyBoard;
+
+    @Override
+    public void setController(GameController controller) {
+        this.controller = controller;
+        startInputListenerThread();
+    }
 
     @Override
     public void showMessage(String message) {
@@ -16,37 +25,33 @@ public class ConsoleView implements GameView {
 
     @Override
     public void displayBoard(Board board, boolean hideShips) {
-        int size = board.getSize();
+        System.out.println("\n--- YOUR FLEET ---");
+        printGrid(board, hideShips);
+    }
 
+    @Override
+    public void displayEnemyBoard(Board board) {
+        this.lastKnownEnemyBoard = board;
+        System.out.println("\n--- ENEMY WATERS ---");
+        printGrid(board, true);
+    }
+
+    private void printGrid(Board board, boolean hideShips) {
+        int size = board.getSize();
         // column headers
         System.out.print("  ");
-        for (int x = 0; x < size; x++) {
-            System.out.print(x + " ");
-        }
+        for (int x = 0; x < size; x++) System.out.print(x + " ");
         System.out.println();
 
         for (int y = 0; y < size; y++) {
             // row headers
             System.out.print(y + " ");
-
             for (int x = 0; x < size; x++) {
                 CellState state = board.getCellState(new Coordinate(x, y));
-                char symbol = getSymbolForState(state, hideShips);
-                System.out.print(symbol + " ");
+                System.out.print(getSymbolForState(state, hideShips) + " ");
             }
             System.out.println();
         }
-        System.out.println();
-    }
-
-    @Override
-    public Coordinate promptForTarget(int boardSize) {
-            System.out.println("Enter target coordinates (0-" + (boardSize - 1) + ")");
-
-            int x = getValidInput("X: ", boardSize);
-            int y = getValidInput("Y: ", boardSize);
-
-            return new Coordinate(x, y);
     }
 
     private int getValidInput(String prompt, int maxBound) {
@@ -75,5 +80,39 @@ public class ConsoleView implements GameView {
             case MISS -> 'O';
             case SUNK -> '#';
         };
+    }
+
+    private void startInputListenerThread() {
+        Thread inputThread = new Thread(() -> {
+            while (true) {
+                if (lastKnownEnemyBoard != null) {
+                    try {
+                        System.out.print("Enter target X and Y (e.g., '3 4'): ");
+
+                        String input = scanner.nextLine().trim();
+                        if (input.isEmpty()) continue;
+
+                        String[] parts = input.split("\\s+");
+                        if (parts.length == 2) {
+                            int x = Integer.parseInt(parts[0]);
+                            int y = Integer.parseInt(parts[1]);
+
+                            // Trigger the event in the Controller
+                            controller.executeHumanTurn((new Coordinate(x, y)));
+                        } else {
+                            System.out.println("Please enter two numbers separated by a space.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter numbers only.");
+                    }
+                } else {
+                    try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+                }
+            }
+        });
+
+        // Setting as a daemon thread so it closes automatically when the GUI window is closed
+        inputThread.setDaemon(true);
+        inputThread.start();
     }
 }

@@ -21,7 +21,6 @@ public class HuntTargetStrategy implements AIFiringStrategy {
     @Override
     public Coordinate determineNextShot(Board enemyBoard) {
         updateStateBasedOnLastShot(enemyBoard);
-
         Coordinate target;
 
         // TARGET MODE - Uses the queue of adjacent coordinates to target ships

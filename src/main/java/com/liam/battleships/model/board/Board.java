@@ -71,7 +71,7 @@ public class Board {
         return true;
     }
 
-    public AttackStatus recieveAttack(Coordinate target) {
+    public AttackStatus receiveAttack(Coordinate target) {
         if (!isValidCoordinate(target)) {
             return AttackStatus.INVALID;
         }

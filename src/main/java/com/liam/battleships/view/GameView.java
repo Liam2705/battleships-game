@@ -1,9 +1,10 @@
 package com.liam.battleships.view;
 
+import com.liam.battleships.controller.GameController;
 import com.liam.battleships.model.board.Board;
-import com.liam.battleships.model.board.Coordinate;
 
 public interface GameView {
+    void setController(GameController controller);
     void showMessage(String message);
 
     /**
@@ -13,5 +14,5 @@ public interface GameView {
      */
     void displayBoard(Board board, boolean hideShips);
 
-    Coordinate promptForTarget(int boardSize);
+    void displayEnemyBoard(Board board);
 }
