@@ -20,8 +20,8 @@ public class Game {
         Board humanBoard = new Board();
         Board aiBoard = new Board();
 
-        AutoPlacer.placeFleetRandomly(humanBoard, factory.createStandardFleet());
-        AutoPlacer.placeFleetRandomly(aiBoard, factory.createStandardFleet());
+        AutoPlacer.placeFleetRandomly(humanBoard, factory.createFleet());
+        AutoPlacer.placeFleetRandomly(aiBoard, factory.createFleet());
 
         HumanPlayer human = new HumanPlayer("Liam", humanBoard);
         AIPlayer ai = new AIPlayer("Computer", aiBoard, new HuntTargetStrategy());
